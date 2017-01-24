@@ -24,16 +24,18 @@ export class Todolist {
     this._items = [
       // new Item('learn js'),
       // new Item('learn ts'),
-      // new Item('learn angular')
-      {title: 'learn js', done: false, created: new Date},
-      {title: 'learn ts', done: false, created: new Date},
-      {title: 'learn angular', done: false, created: new Date}
+      // new Item('learn angular'),
+      // new Item('learn csharp')
+      // {title: 'learn js', done: false, created: new Date},
+      // {title: 'learn ts', done: true, created: new Date},
+      // {title: 'learn angular', done: false, created: new Date}
 
     ];
   }
 
-  public addItem(title:string): void{
+  public addItem(title:string): void{   //title? optional
     this._items.push({ title: title, created: new Date, done: false});
+    // this._items.push(new Item(title));
   }
 
   get items(): Item[] {
@@ -43,6 +45,14 @@ export class Todolist {
   public removeItem(item: Item){
     const index = this._items.indexOf(item);
     this._items.splice(index,1);
+  }
+
+  public removeDone(){
+    this._items = this._items.filter( item => item.done === false);
+  }
+
+  public toggle(flag:boolean){
+    console.log('to implment: ' + flag);
   }
 
 

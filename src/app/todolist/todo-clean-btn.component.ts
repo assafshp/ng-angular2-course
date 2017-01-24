@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-todo-clean-btn',
   template: `
-    <button class="clear-completed">Clear completed</button>
+    <button (click)="clear.emit()" 
+            class="clear-completed">{{ label }}
+    </button>
   `,
   styles: []
 })
-export class TodoCleanBtnComponent implements OnInit {
+export class TodoCleanBtnComponent{
 
-  constructor() { }
+  @Input() label: string;
+  @Output() clear = new EventEmitter<void>();
 
-  ngOnInit() {
-  }
+
+
 
 }

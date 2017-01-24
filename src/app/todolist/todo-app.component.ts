@@ -6,28 +6,38 @@ import {Todolist} from "./todolist.service";
   template: `
     <section class="todoapp">
       <app-todo-header>
-        <app-todo-title title="Assaf"></app-todo-title>
-        <app-todo-input></app-todo-input>
+        <app-todo-title [title]="appTitle"></app-todo-title>
+        <app-todo-input (add)="list.addItem($event)"></app-todo-input>
       </app-todo-header>
       
       <app-todo-main>
-        <app-todo-toggle></app-todo-toggle>
-        <app-todo-items></app-todo-items>
+        <app-todo-toggle (toggle)="list.toggle($event)"></app-todo-toggle>
+        <app-todo-items [items]="list.items"></app-todo-items>
       </app-todo-main>
       
       <app-todo-footer>
         <app-todo-counter></app-todo-counter>
-        <app-todo-clean-btn></app-todo-clean-btn>
+        <app-todo-clean-btn label="clear now!" 
+                            (clear)="list.removeDone()"></app-todo-clean-btn>
       </app-todo-footer>
     </section>
   `,
   styles: []
 })
+
+//<app-todo-clean-btn (click)='list.removeDone()'></app-todo-clean-btn>
+
+
 export class TodoAppComponent implements OnInit {
+
+  private appTitle:string;
+  private list: Todolist;
 
   constructor(list: Todolist) {
 
     console.log('list items=' + list.items);
+    this.appTitle='TODOS1';
+    this.list=list;
 
 
   }

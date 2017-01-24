@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-todo-toggle',
   template: `
     <input class="toggle-all"
+           #input
+           (change)="toggle.emit(input.checked)"
            type="checkbox">
   `,
   styles: []
 })
-export class TodoToggleComponent implements OnInit {
+export class TodoToggleComponent {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  @Output() toggle = new EventEmitter<boolean>();
 
 }
+
+
+//<!--(change)="toggle.emit($event.target.checked)"-->
