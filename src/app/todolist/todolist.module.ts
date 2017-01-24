@@ -11,10 +11,14 @@ import { TodoItemsComponent } from './todo-items.component';
 import { TodoItemComponent } from './todo-item.component';
 import { TodoCounterComponent } from './todo-counter.component';
 import { TodoCleanBtnComponent } from './todo-clean-btn.component';
+import { Todolist } from "./todolist.service";
 
 @NgModule({
   imports: [
     CommonModule
+  ],
+  providers:[
+    Todolist
   ],
   declarations: [
     TodoAppComponent,

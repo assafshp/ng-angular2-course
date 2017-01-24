@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import {Todolist} from "./todolist.service";
 
 @Component({
   selector: 'todo-app',
   template: `
     <section class="todoapp">
       <app-todo-header>
-        <app-todo-title></app-todo-title>
+        <app-todo-title title="Assaf"></app-todo-title>
         <app-todo-input></app-todo-input>
       </app-todo-header>
       
@@ -24,7 +25,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TodoAppComponent implements OnInit {
 
-  constructor() { }
+  constructor(list: Todolist) {
+
+    console.log('list items=' + list.items);
+
+
+  }
 
   ngOnInit() {
   }
