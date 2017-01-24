@@ -3,9 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-todo-clean-btn',
   template: `
-    <p>
-      todo-clean-btn Works!
-    </p>
+    <button class="clear-completed">Clear completed</button>
   `,
   styles: []
 })

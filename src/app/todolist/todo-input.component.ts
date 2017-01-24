@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-todo-input',
   template: `
-    <p>
-      todo-input Works!
-    </p>
+    <input class="new-todo"
+           placeholder="What needs to be done?"
+           autofocus>
   `,
   styles: []
 })

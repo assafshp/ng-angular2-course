@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-todo-footer',
   template: `
-    <p>
-      todo-footer Works!
-    </p>
+    <footer class="footer">
+      <ng-content></ng-content>
+    </footer>
   `,
   styles: []
 })

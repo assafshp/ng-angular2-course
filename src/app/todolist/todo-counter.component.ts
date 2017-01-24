@@ -3,9 +3,10 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-todo-counter',
   template: `
-    <p>
-      todo-counter Works!
-    </p>
+    <span class="todo-count">
+      <strong>1</strong>
+      item left
+    </span>
   `,
   styles: []
 })

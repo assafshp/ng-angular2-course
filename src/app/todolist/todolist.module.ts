@@ -16,6 +16,26 @@ import { TodoCleanBtnComponent } from './todo-clean-btn.component';
   imports: [
     CommonModule
   ],
-  declarations: [TodoAppComponent, TodoHeaderComponent, TodoMainComponent, TodoFooterComponent, TodoTitleComponent, TodoInputComponent, TodoToggleComponent, TodoItemsComponent, TodoItemComponent, TodoCounterComponent, TodoCleanBtnComponent]
+  declarations: [
+    TodoAppComponent,
+    TodoHeaderComponent,
+    TodoMainComponent,
+    TodoFooterComponent,
+    TodoTitleComponent,
+    TodoInputComponent,
+    TodoToggleComponent,
+    TodoItemsComponent,
+    TodoItemComponent,
+    TodoCounterComponent,
+    TodoCleanBtnComponent
+  ],
+  exports: [
+    TodoAppComponent
+  ]
 })
-export class TodolistModule { }
+export class TodolistModule {
+
+  constructor() {
+  }
+
+}

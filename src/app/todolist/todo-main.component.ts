@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-todo-main',
   template: `
-    <p>
-      todo-main Works!
-    </p>
+    <section class="main">
+      <ng-content></ng-content>
+    </section>
   `,
   styles: []
 })

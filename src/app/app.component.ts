@@ -15,6 +15,9 @@
 //cmd+n - new items
 //cmd+shift+a - actions
 //cmd+shift+] - move tabs
+//ctrl+tab - switcher
+//ctrl+b - go to class
+//cmd+alt+t - surround with
 
 //ng serve
 //ng test
@@ -31,10 +34,12 @@
 import {Component, ViewEncapsulation} from "@angular/core";
 
 @Component({
-  encapsulation: ViewEncapsulation.Native,
+  // encapsulation: ViewEncapsulation.Native,
   selector: 'app-root',
-  template: '<h1>{{title}}</h1>',
-  styles: ['h1 {color:red}']
+  template: `
+    <todo-app></todo-app>
+  `,
+  // styles: ['h1 {color:red}']
 })
 
 export class AppComponent{

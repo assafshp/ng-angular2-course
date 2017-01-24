@@ -3,9 +3,8 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-todo-toggle',
   template: `
-    <p>
-      todo-toggle Works!
-    </p>
+    <input class="toggle-all"
+           type="checkbox">
   `,
   styles: []
 })
