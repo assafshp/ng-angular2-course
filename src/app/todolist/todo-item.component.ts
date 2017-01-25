@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {Item} from "./todolist.service";
 
 @Component({
@@ -8,12 +8,13 @@ import {Item} from "./todolist.service";
         <div class="view">
           <input class="toggle"
                  [checked]="item.done"
+                 (click)="markDone()"
                  type="checkbox">
 
           <!--<label>{{item.title | uppercase}} {{ item.created | date: 'short'}}</label>-->
-          <label>{{ item.title | upper}} {{ item.created | date: 'short'}}</label>
+          <label appMarker >{{ item.title | upper}} {{ item.created | date: 'short'}}</label>
 
-          <button class="destroy"></button>
+          <button class="destroy" (click)="destroyItem.emit()"></button>
 
         </div>
 
@@ -26,6 +27,14 @@ import {Item} from "./todolist.service";
 export class TodoItemComponent  {
 
   @Input() item:Item;
+  @Output() destroyItem = new EventEmitter<void>();
+
+  private markDone(){
+    console.log('clicked');
+    this.item.done = !this.item.done;
+  }
+
+
 
 
 

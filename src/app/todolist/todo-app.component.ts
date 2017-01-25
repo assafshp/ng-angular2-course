@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {Todolist} from "./todolist.service";
+import {StorageService} from "../utils/storage.service";
+
+const TODOLIST= {
+  provide   : Todolist,
+  useFactory: (storage) => new Todolist(storage, 'KEY'), //useValue, useExisting
+  deps      : [ StorageService]
+}
+
 
 @Component({
   selector: 'todo-app',
@@ -23,7 +31,12 @@ import {Todolist} from "./todolist.service";
       </app-todo-footer>
     </section>
   `,
-  styles: []
+  styles: [],
+  providers: [
+    // Todolist
+    // { provide: Todolist, useClass: Todolist}
+    TODOLIST
+  ]
 })
 
 //<app-todo-clean-btn (click)='list.removeDone()'></app-todo-clean-btn>
@@ -36,7 +49,7 @@ export class TodoAppComponent implements OnInit {
 
   constructor(list: Todolist) {
 
-    console.log('list items=' + list.items);
+    console.log('TodoAppComponent instance');
     this.appTitle='TODOS1';
     this.list=list;
 

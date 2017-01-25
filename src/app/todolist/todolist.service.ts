@@ -1,3 +1,5 @@
+import {StorageService} from "../utils/storage.service";
+import {Injectable} from "@angular/core";
 export interface Item{
   title:string;
   done:boolean;
@@ -16,12 +18,25 @@ export interface Item{
 //   }
 // }
 
+// function stam(target){
+//
+// }
+
+// @stam
+@Injectable()
 export class Todolist {
+  // set KEY(value: string) {
+  //   this._KEY = value;
+  // }
 
   private _items : Item[];
+  private storage : StorageService;
+  private _KEY: string;
 
-  constructor() {
-    this._items = [
+  constructor(storage: StorageService, key: string) {
+    this._KEY=key;
+    this.storage=storage;
+    // this._items = [
       // new Item('learn js'),
       // new Item('learn ts'),
       // new Item('learn angular'),
@@ -30,13 +45,14 @@ export class Todolist {
       // {title: 'learn ts', done: false, created: new Date},
       // {title: 'learn angular', done: false, created: new Date}
 
-    ];
+    // ];
+    this._items = this.storage.get(this._KEY) || [];
   }
 
   public addItem(title:string): void{   //title? optional
     // this._items.push({ title: title, created: new Date, done: false});
 
-    console.log(this.items);
+    // console.log(this.items);
     // this._items.push(new Item(title));
 
     const item = {
@@ -45,6 +61,7 @@ export class Todolist {
 
     //Create new ref to the array - spread operator, can use also Object.assign
     this._items=[...this._items, item];
+    this.storage.save(this._KEY, this._items);
   }
 
   get items(): Item[] {

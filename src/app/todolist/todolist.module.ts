@@ -11,7 +11,7 @@ import { TodoItemsComponent } from './todo-items.component';
 import { TodoItemComponent } from './todo-item.component';
 import { TodoCounterComponent } from './todo-counter.component';
 import { TodoCleanBtnComponent } from './todo-clean-btn.component';
-import { Todolist } from "./todolist.service";
+// import { Todolist } from "./todolist.service";
 import {UtilsModule} from "../utils/utils.module";
 
 @NgModule({
@@ -19,9 +19,9 @@ import {UtilsModule} from "../utils/utils.module";
     CommonModule,
     UtilsModule
   ],
-  providers:[
-    Todolist
-  ],
+  // providers:[
+  //   Todolist
+  // ],
   declarations: [
     TodoAppComponent,
     TodoHeaderComponent,
@@ -42,6 +42,7 @@ import {UtilsModule} from "../utils/utils.module";
 export class TodolistModule {
 
   constructor() {
+    console.log('TodolistModule instance');
   }
 
 }

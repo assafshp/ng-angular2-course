@@ -17,4 +17,5 @@ export class TodoToggleComponent {
 }
 
 
+//optional instead of using the id #input of the element
 //<!--(change)="toggle.emit($event.target.checked)"-->

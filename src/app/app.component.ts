@@ -25,7 +25,9 @@
 //ng lint
 //ng generate module {moduleName} == ng g m todoList
 //ng g c todolist/todoApp --flat
-//ng g pipe utils/upper
+//ng g pipe utils/upper - create pipe (=filter)
+//ng g directive utils/marker - create directive
+
 
 
 
@@ -39,10 +41,23 @@ import {Component, ViewEncapsulation} from "@angular/core";
   // encapsulation: ViewEncapsulation.Native,
   selector: 'app-root',
   template: `
-    <todo-app></todo-app>
+
+      <todo-app></todo-app>
+      <todo-app></todo-app>
+      <todo-app></todo-app>
+      
+      <h1>My App</h1>
+    
+      <input type="checkbox" [(ngModel)]="flag"/>
+      
+      <h2 *appIf="flag" appFocus>Hello Template</h2>
+      
+      <input *appIf="flag" appFocus=""/>
+      
   `,
-  // styles: ['h1 {color:red}']
+  styles: ['h1 {text-align:center;color:red}']
 })
+
 
 export class AppComponent{
 
