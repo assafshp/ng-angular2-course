@@ -10,7 +10,9 @@ import {Item} from "./todolist.service";
                  [checked]="item.done"
                  type="checkbox">
 
-          <label>{{item.title}}</label>
+          <!--<label>{{item.title | uppercase}} {{ item.created | date: 'short'}}</label>-->
+          <label>{{ item.title }} {{ item.created | date: 'short'}}</label>
+
 
           <button class="destroy"></button>
 

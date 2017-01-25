@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, Renderer} from '@angular/core';
 
 @Component({
   selector: 'app-todo-input',
@@ -7,7 +7,7 @@ import {Component, OnInit, Output, EventEmitter} from '@angular/core';
            [hidden]="flag"
            #input
            [placeholder]="text"
-           (keydown.enter)="add.emit(input.value); input.value='';"
+           (keydown.enter)="dispatchEvent((input.value))"
            autofocus>
   `,
   styles: []
@@ -15,20 +15,29 @@ import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 export class TodoInputComponent implements OnInit {
 
   @Output() add = new EventEmitter<string>();
+  @ViewChild('input') input: ElementRef;
   // @Output() add: EventEmitter<string>;
   private text:string;
   // type = 'text';
   flag=false;
+  private _renderer : Renderer;
 
 
 
-  constructor() {
+  constructor(public renderer: Renderer) {
     this.text='What needs to be done?';
+    this._renderer=renderer;
     // setTimeout(()=> this.type = 'date', 5000 );
     // this.add = new EventEmitter<string>();
   }
 
   ngOnInit() {
+  }
+
+  private  dispatchEvent(value){
+    console.log(this.input);
+    this.add.emit(value);
+    this._renderer.setElementProperty(this.input.nativeElement,'value','');
   }
 
 }
