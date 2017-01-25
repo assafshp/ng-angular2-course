@@ -58,7 +58,7 @@ import {register} from "ts-node/dist";
       
       <h1>Reactive Forms Modules</h1>
       
-      <form [formGroup]="userForm">
+      <form [formGroup]="userForm" (ngSubmit)="register()">
       <fieldset>
         <input type="text" formControlName="username" placeholder="username"/>
         <input type="password" formControlName="password" placeholder="password"/>
@@ -79,6 +79,7 @@ import {register} from "ts-node/dist";
         <button type="button" (click)="addPhone()">+</button>
       </fieldset>
       
+      <button type="submit">Send</button>
       </form>
       
       
