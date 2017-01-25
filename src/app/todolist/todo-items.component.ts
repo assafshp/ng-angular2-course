@@ -1,7 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {Item} from "./todolist.service";
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush, //don't check inside, shallow, only check if new reference, relevant for input also
   selector: 'app-todo-items',
   template: `
 

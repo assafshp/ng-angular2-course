@@ -52,3 +52,6 @@ export class TodoAppComponent implements OnInit {
   }
 
 }
+
+
+//string is immutable. array is not immutable

@@ -34,15 +34,17 @@ export class Todolist {
   }
 
   public addItem(title:string): void{   //title? optional
-    this._items.push({ title: title, created: new Date, done: false});
+    // this._items.push({ title: title, created: new Date, done: false});
+
+    console.log(this.items);
     // this._items.push(new Item(title));
 
-    // const item = {
-    //   title: title, done: false, created: new Date()
-    // };
-    //
-    // //Create new ref to the array - spread operator
-    // this._items=[...this._items, item];
+    const item = {
+      title: title, done: false, created: new Date()
+    };
+
+    //Create new ref to the array - spread operator, can use also Object.assign
+    this._items=[...this._items, item];
   }
 
   get items(): Item[] {
