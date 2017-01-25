@@ -25,6 +25,8 @@
 //ng lint
 //ng generate module {moduleName} == ng g m todoList
 //ng g c todolist/todoApp --flat
+//ng g pipe utils/upper
+
 
 
 //decorator - func that returns func, function that returns annotation, can get params that will be invoked and return function

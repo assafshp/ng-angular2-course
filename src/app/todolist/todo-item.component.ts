@@ -11,8 +11,7 @@ import {Item} from "./todolist.service";
                  type="checkbox">
 
           <!--<label>{{item.title | uppercase}} {{ item.created | date: 'short'}}</label>-->
-          <label>{{ item.title }} {{ item.created | date: 'short'}}</label>
-
+          <label>{{ item.title | upper}} {{ item.created | date: 'short'}}</label>
 
           <button class="destroy"></button>
 
@@ -27,9 +26,6 @@ import {Item} from "./todolist.service";
 export class TodoItemComponent  {
 
   @Input() item:Item;
-
-
-
 
 
 

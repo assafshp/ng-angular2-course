@@ -12,10 +12,12 @@ import { TodoItemComponent } from './todo-item.component';
 import { TodoCounterComponent } from './todo-counter.component';
 import { TodoCleanBtnComponent } from './todo-clean-btn.component';
 import { Todolist } from "./todolist.service";
+import {UtilsModule} from "../utils/utils.module";
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    UtilsModule
   ],
   providers:[
     Todolist

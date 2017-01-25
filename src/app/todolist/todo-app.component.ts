@@ -16,7 +16,8 @@ import {Todolist} from "./todolist.service";
       </app-todo-main>
       
       <app-todo-footer>
-        <app-todo-counter></app-todo-counter>
+        <!--<app-todo-counter [amount]="countUnDone()"></app-todo-counter>-->
+        <app-todo-counter [amount]="list.items | countBy:'done':false"></app-todo-counter>
         <app-todo-clean-btn label="clear now!" 
                             (clear)="list.removeDone()"></app-todo-clean-btn>
       </app-todo-footer>
@@ -43,6 +44,11 @@ export class TodoAppComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  countUnDone(): number{
+    return this.list.items.filter(item => item.done === false).length;
+
   }
 
 }
