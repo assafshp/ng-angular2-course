@@ -35,9 +35,10 @@
 //annotation - function, declaration on the function but it is not invoked, annotation cannot get params
 
 
-import {Component, ViewEncapsulation} from "@angular/core";
+import {Component, ViewEncapsulation, OnInit} from "@angular/core";
 import {FormGroup, FormControl, FormArray, FormBuilder, Validators} from "@angular/forms";
 import {register} from "ts-node/dist";
+import 'rxjs';
 
 @Component({
   // encapsulation: ViewEncapsulation.Native,
@@ -103,7 +104,18 @@ import {register} from "ts-node/dist";
 })
 
 
-export class AppComponent {
+export class AppComponent implements OnInit{
+
+  ngOnInit(): void {  //life cycle for each directive - after constuctor and onchanges (change detection run and sync all data)
+    const username = this.userForm.get('username');
+    username.valueChanges
+      .debounceTime(400)   //from rxjs
+      .filter(value => value>12)
+      .subscribe(value => console.log('username=' + value));  //observable - get stream for changes, stream of events
+
+
+
+  }
 
   // private title: string;
   //
@@ -120,7 +132,7 @@ export class AppComponent {
   constructor(builder: FormBuilder) {
 
     this.userForm = builder.group({
-      username: ['', Validators.required],
+      username: ['', [Validators.required]],
       password: '12345',
       address: builder.group({
         city: ['Eilat', [Validators.minLength(3), Validators.required]],
