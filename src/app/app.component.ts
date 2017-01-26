@@ -36,7 +36,7 @@
 
 
 import {Component, ViewEncapsulation} from "@angular/core";
-import {FormGroup, FormControl, FormArray, FormBuilder} from "@angular/forms";
+import {FormGroup, FormControl, FormArray, FormBuilder, Validators} from "@angular/forms";
 import {register} from "ts-node/dist";
 
 @Component({
@@ -63,6 +63,11 @@ import {register} from "ts-node/dist";
         <input type="text" formControlName="username" placeholder="username"/>
         <input type="password" formControlName="password" placeholder="password"/>
       </fieldset>
+      <!--<span *ngIf="userForm.get('username').invalid">Not Valid!</span>-->
+      <span [hidden]="userForm.get('username').valid">Not Valid!</span>
+      
+      
+      
       
       <fieldset formGroupName="address">
         <legend>Address:</legend>
@@ -70,7 +75,7 @@ import {register} from "ts-node/dist";
         <input type="text" formControlName="street"  placeholder="street"/>
       </fieldset>
       
-      <fieldset formArrayName="phones">
+      <fieldset *ngIf="userForm.get('address').valid" formArrayName="phones">
         <legend>Phones</legend>
         <input type="text"
                *ngFor="let phone of userForm.get('phones').controls; let i=index"
@@ -84,7 +89,17 @@ import {register} from "ts-node/dist";
       
       
   `,
-  styles: ['h1 {text-align:center;color:red}']
+  styles: [
+    `/*h1 {text-align:center;color:red}*/
+
+     input.ng-invalid { background-color: black}
+     
+     
+
+    `
+
+
+  ]
 })
 
 
@@ -97,6 +112,7 @@ export class AppComponent {
   // }
 
   private userForm  : FormGroup;
+  private msg = 'Assaf';
   // private address   : FormGroup;
   // private phones    : FormArray;
 
@@ -104,10 +120,10 @@ export class AppComponent {
   constructor(builder: FormBuilder) {
 
     this.userForm = builder.group({
-      username: 'Assaf',
+      username: ['', Validators.required],
       password: '12345',
       address: builder.group({
-        city: 'Eilat',
+        city: ['Eilat', [Validators.minLength(3), Validators.required]],
         street: 'ddd'
       }),
       phones: builder.array([ new FormControl('1212121')])
@@ -116,9 +132,21 @@ export class AppComponent {
     // console.log()
 
     this.register();
+
+    // this.userForm.registerControl();
   }
 
   public register(){
+
+    //angular automaticllly add classes lass="ng-touched ng-dirty ng-invalid
+    console.log('touched: ' + this.userForm.touched);
+    console.log('valid: ' + this.userForm.valid);
+    if (this.userForm.valid){
+      console.log('valid');
+    }
+    else{
+      console.log('invalid');
+    }
     console.log((this.userForm.value));
   }
 
