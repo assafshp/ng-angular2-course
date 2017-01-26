@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, ChangeDetectorRef} from '@angular/core';
 
 
 @Component({
@@ -14,6 +14,10 @@ export class TodoTitleComponent implements OnInit {
   private title:string;
 
 
+  constructor(cd: ChangeDetectorRef) {
+    cd.detach();
+    // this.title = title;
+  }
 
   ngOnInit() {
   }

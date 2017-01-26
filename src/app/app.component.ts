@@ -40,13 +40,15 @@ import {FormGroup, FormControl, FormArray, FormBuilder, Validators} from "@angul
 import {register} from "ts-node/dist";
 import 'rxjs';
 import {CustomValidators} from "./custom-validators";
+import {Http, Headers, URLSearchParams} from "@angular/http";
 
 @Component({
   // encapsulation: ViewEncapsulation.Native,
   selector: 'app-root',
   template: `
 
-      <!--<todo-app></todo-app>-->
+      <todo-app></todo-app>
+      
       <!--<todo-app></todo-app>-->
       <!--<todo-app></todo-app>-->
       <!---->
@@ -58,48 +60,44 @@ import {CustomValidators} from "./custom-validators";
       <!---->
       <!--<input *appIf="flag" appFocus=""/>-->
       
-      <h1>Reactive Forms Modules</h1>
-      
-      <form [formGroup]="userForm" (ngSubmit)="register()">
-      <fieldset>
-        <input type="text" formControlName="username" placeholder="username"/>
-        <input type="password" formControlName="password" placeholder="password"/>
-      </fieldset>
-      <!--<span *ngIf="userForm.get('username').invalid">Not Valid!</span>-->
-      <span [hidden]="userForm.get('username').valid">Not Valid!</span>
-      
-      
-      
-      
-      <fieldset formGroupName="address">
-        <legend>Address:</legend>
-        <input type="text" formControlName="city" placeholder="city"/>
-        <input type="text" formControlName="street"  placeholder="street"/>
-      </fieldset>
-      
-      <fieldset *ngIf="userForm.get('address').valid" formArrayName="phones">
-        <legend>Phones</legend>
-        <input type="text"
-               *ngFor="let phone of userForm.get('phones').controls; let i=index"
-               [formControlName]="i"
-               placeholder="phone"/>
-        <button type="button" (click)="addPhone()">+</button>
-      </fieldset>
-      
-      <button type="submit">Send</button>
-      </form>
+      <!--<h1>Reactive Forms Modules</h1>-->
+      <!---->
+      <!--<form [formGroup]="userForm" (ngSubmit)="register()">-->
+      <!--<fieldset>-->
+        <!--<input type="text" formControlName="username" placeholder="username"/>-->
+        <!--<input type="password" formControlName="password" placeholder="password"/>-->
+      <!--</fieldset>-->
+      <!--&lt;!&ndash;<span *ngIf="userForm.get('username').invalid">Not Valid!</span>&ndash;&gt;-->
+      <!--<span [hidden]="userForm.get('username').valid">Not Valid!</span>-->
+      <!---->
+      <!---->
+      <!---->
+      <!---->
+      <!--<fieldset formGroupName="address">-->
+        <!--<legend>Address:</legend>-->
+        <!--<input type="text" formControlName="city" placeholder="city"/>-->
+        <!--<input type="text" formControlName="street"  placeholder="street"/>-->
+      <!--</fieldset>-->
+      <!---->
+      <!--<fieldset *ngIf="userForm.get('address').valid" formArrayName="phones">-->
+        <!--<legend>Phones</legend>-->
+        <!--<input type="text"-->
+               <!--*ngFor="let phone of userForm.get('phones').controls; let i=index"-->
+               <!--[formControlName]="i"-->
+               <!--placeholder="phone"/>-->
+        <!--<button type="button" (click)="addPhone()">+</button>-->
+      <!--</fieldset>-->
+      <!---->
+      <!--<button type="submit">Send</button>-->
+      <!--</form>-->
       
       
   `,
   styles: [
     `/*h1 {text-align:center;color:red}*/
-
      input.ng-invalid { background-color: black}
      
-     
-
     `
-
 
   ]
 })
@@ -107,78 +105,110 @@ import {CustomValidators} from "./custom-validators";
 
 export class AppComponent implements OnInit{
 
-  ngOnInit(): void {  //life cycle for each directive - after constuctor and onchanges (change detection run and sync all data)
-    const username = this.userForm.get('username');
-    username.valueChanges
-      .debounceTime(400)   //from rxjs
-      .filter(value => value>12)
-      .subscribe(value => console.log('username=' + value));  //observable - get stream for changes, stream of events
+  ngOnInit(): void {
 
+  }
+
+
+  constructor(http: Http) {
+
+    const headers = new Headers();
+    headers.append('custom','dddddd');
+
+    const search = new URLSearchParams();
+    search.append('q','assaf');
+
+    http.get('https://jsonplaceholder.typicode.com/todos',{
+      headers, //instead of headers: headers
+      search,
+    })
+      .do( response => console.log(response.status)) //use case - save login data to storage
+      .filter( response => response.json())
+      .subscribe(
+        response => console.log( response.json()),
+        error => console.log('error'),
+        // done => console.log('done')
+
+
+
+      );
+    //.catch - in rxjs
 
 
   }
 
-  // private title: string;
+// ngOnInit(): void {  //life cycle for each directive - after constuctor and onchanges (change detection run and sync all data)
+  //   const username = this.userForm.get('username');
+  //   username.valueChanges
+  //     .debounceTime(400)   //from rxjs
+  //     .filter(value => value>12)
+  //     .subscribe(value => console.log('username=' + value));  //observable - get stream for changes, stream of events
   //
-  // constructor() {
-  //   this.title = "Hello Angular";
+  //
+  //
   // }
-
-  private userForm  : FormGroup;
-  private msg = 'Assaf';
-  // private address   : FormGroup;
-  // private phones    : FormArray;
-
-
-  constructor(builder: FormBuilder) {
-
-    this.userForm = builder.group({
-      username: ['', [
-        Validators.required,
-        // CustomValidators.noSpace,
-        // CustomValidators.noAssaf
-
-      ]],
-      password: '12345',
-      address: builder.group({
-        city: ['Eilat', [
-          Validators.minLength(3),
-          Validators.required],
-          // CustomValidators.noAssaf,
-          // CustomValidators.noSpace
-        ],
-        street: 'ddd'
-      }),
-      phones: builder.array([ new FormControl('1212121')])
-    });
-
-    // console.log()
-
-    this.register();
-
-    // this.userForm.registerControl();
-  }
-
-  public register(){
-
-    // console.log(this.userForm.get('username').errors);
-
-    //angular automaticllly add classes lass="ng-touched ng-dirty ng-invalid
-    console.log('touched: ' + this.userForm.touched);
-    console.log('valid: ' + this.userForm.valid);
-    if (this.userForm.valid){
-      console.log('valid');
-    }
-    else{
-      console.log('invalid');
-    }
-    console.log((this.userForm.value));
-  }
-
-  public addPhone(){
-    const phonesArr = <FormArray>this.userForm.get('phones');
-    phonesArr.push(new FormControl());
-  }
+  //
+  // // private title: string;
+  // //
+  // // constructor() {
+  // //   this.title = "Hello Angular";
+  // // }
+  //
+  // private userForm  : FormGroup;
+  // private msg = 'Assaf';
+  // // private address   : FormGroup;
+  // // private phones    : FormArray;
+  //
+  //
+  // constructor(builder: FormBuilder) {
+  //
+  //   this.userForm = builder.group({
+  //     username: ['', [
+  //       Validators.required,
+  //       // CustomValidators.noSpace,
+  //       // CustomValidators.noAssaf
+  //
+  //     ]],
+  //     password: '12345',
+  //     address: builder.group({
+  //       city: ['Eilat', [
+  //         Validators.minLength(3),
+  //         Validators.required],
+  //         // CustomValidators.noAssaf,
+  //         // CustomValidators.noSpace
+  //       ],
+  //       street: 'ddd'
+  //     }),
+  //     phones: builder.array([ new FormControl('1212121')])
+  //   });
+  //
+  //   // console.log()
+  //
+  //   this.register();
+  //
+  //   // this.userForm.registerControl();
+  // }
+  //
+  // public register(){
+  //
+  //   // console.log(this.userForm.get('username').errors);
+  //
+  //   //angular automaticllly add classes lass="ng-touched ng-dirty ng-invalid
+  //   console.log('touched: ' + this.userForm.touched);
+  //   console.log('valid: ' + this.userForm.valid);
+  //   if (this.userForm.valid){
+  //     console.log('valid');
+  //   }
+  //   else{
+  //     console.log('invalid');
+  //   }
+  //   console.log((this.userForm.value));
+  // }
+  //
+  // public addPhone(){
+  //   const phonesArr = <FormArray>this.userForm.get('phones');
+  //   phonesArr.push(new FormControl());
+  // }
 
 // private userForm  : FormGroup;
   // private usertName : FormControl;

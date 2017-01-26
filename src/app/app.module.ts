@@ -4,10 +4,11 @@ import {BrowserModule} from "@angular/platform-browser";
 import {TodolistModule} from "./todolist/todolist.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {UtilsModule} from "./utils/utils.module";
+import {HttpModule} from "@angular/http";
 
 @NgModule({
   declarations: [AppComponent],
-  imports     : [BrowserModule, TodolistModule, FormsModule, UtilsModule, ReactiveFormsModule], //like ng1 list of dependet modules
+  imports     : [BrowserModule, TodolistModule, FormsModule, UtilsModule, ReactiveFormsModule, HttpModule], //like ng1 list of dependet modules
   bootstrap   : [AppComponent]
 })
 
