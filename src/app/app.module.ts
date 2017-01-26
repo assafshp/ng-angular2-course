@@ -8,7 +8,7 @@ import {HttpModule} from "@angular/http";
 import { LoginComponent } from './login/login.component';
 import {TodoAppComponent} from "./todolist/todo-app.component";
 import {Routes, RouterModule, Router} from "@angular/router";
-import {routes} from "./routes"
+import {routes, IsAdmin} from "./routes"
 
 
 
@@ -25,7 +25,9 @@ import {routes} from "./routes"
     HttpModule
   ], //like ng1 list of dependet modules
   bootstrap   : [AppComponent],
-  exports: [LoginComponent]
+  exports: [LoginComponent],
+  providers: [IsAdmin]
+
 })
 
 export class AppModule {
