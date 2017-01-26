@@ -39,6 +39,7 @@ import {Component, ViewEncapsulation, OnInit} from "@angular/core";
 import {FormGroup, FormControl, FormArray, FormBuilder, Validators} from "@angular/forms";
 import {register} from "ts-node/dist";
 import 'rxjs';
+import {CustomValidators} from "./custom-validators";
 
 @Component({
   // encapsulation: ViewEncapsulation.Native,
@@ -132,10 +133,20 @@ export class AppComponent implements OnInit{
   constructor(builder: FormBuilder) {
 
     this.userForm = builder.group({
-      username: ['', [Validators.required]],
+      username: ['', [
+        Validators.required,
+        // CustomValidators.noSpace,
+        // CustomValidators.noAssaf
+
+      ]],
       password: '12345',
       address: builder.group({
-        city: ['Eilat', [Validators.minLength(3), Validators.required]],
+        city: ['Eilat', [
+          Validators.minLength(3),
+          Validators.required],
+          // CustomValidators.noAssaf,
+          // CustomValidators.noSpace
+        ],
         street: 'ddd'
       }),
       phones: builder.array([ new FormControl('1212121')])
@@ -149,6 +160,8 @@ export class AppComponent implements OnInit{
   }
 
   public register(){
+
+    // console.log(this.userForm.get('username').errors);
 
     //angular automaticllly add classes lass="ng-touched ng-dirty ng-invalid
     console.log('touched: ' + this.userForm.touched);
