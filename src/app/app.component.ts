@@ -35,7 +35,7 @@
 //annotation - function, declaration on the function but it is not invoked, annotation cannot get params
 
 
-import {Component, ViewEncapsulation, OnInit} from "@angular/core";
+import {Component, ViewEncapsulation, OnInit, OnDestroy} from "@angular/core";
 import {FormGroup, FormControl, FormArray, FormBuilder, Validators} from "@angular/forms";
 import {register} from "ts-node/dist";
 import 'rxjs';
@@ -44,10 +44,14 @@ import {Http, Headers, URLSearchParams} from "@angular/http";
 
 @Component({
   // encapsulation: ViewEncapsulation.Native,
+
   selector: 'app-root',
   template: `
-
-      <todo-app></todo-app>
+    <a [routerLink]="['login']">login</a>
+    <a [routerLink]="['list']">list</a>
+    <router-outlet></router-outlet>
+  <!--<app-login></app-login>-->
+      <!--<todo-app></todo-app>-->
       
       <!--<todo-app></todo-app>-->
       <!--<todo-app></todo-app>-->
@@ -103,12 +107,16 @@ import {Http, Headers, URLSearchParams} from "@angular/http";
 })
 
 
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
 
   }
 
+
+  ngOnDestroy(): void {
+    console.log('destroyed');
+  }
 
   constructor(http: Http) {
 

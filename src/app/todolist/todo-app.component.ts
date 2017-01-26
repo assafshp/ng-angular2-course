@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Todolist} from "./todolist.service";
 import {StorageService} from "../utils/storage.service";
+import {ActivatedRoute} from "@angular/router";
 
 const TODOLIST= {
   provide   : Todolist,
@@ -47,11 +48,13 @@ export class TodoAppComponent implements OnInit {
   private appTitle:string;
   private list: Todolist;
 
-  constructor(list: Todolist) {
+  constructor(list: Todolist, route:ActivatedRoute) {
 
     console.log('TodoAppComponent instance');
     this.appTitle='TODOS1';
     this.list=list;
+
+    route.queryParams.subscribe(param => console.log(param));
 
 
   }
